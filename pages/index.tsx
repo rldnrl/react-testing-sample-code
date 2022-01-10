@@ -1,8 +1,24 @@
 import type { NextPage } from "next";
+import Input from "@components/Input";
+import Label from "@components/Label";
 import Head from "next/head";
 import Image from "next/image";
+import { ChangeEventHandler, useState } from "react";
+import emailValidate from "@utils/email-validate";
 
 const Home: NextPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (!emailValidate(email)) {
+      setIsError(true);
+    }
+    setEmail(e.target.value);
+  };
+
   return (
     <div>
       <Head>
@@ -11,52 +27,40 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p>
-          Get started by editing <code>pages/index.tsx</code>
-        </p>
-
-        <div>
-          <a href="https://nextjs.org/docs">
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn">
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples">
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <form onSubmit={() => {}}>
+        <Label htmlFor="email">
+          <span>Email Address</span>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={onChangeEmail}
+          />
+        </Label>
+        <Label htmlFor="password">
+          <span>Password</span>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Label>
+        <Label htmlFor="confirm-password">
+          <span>Confirm Password</span>
+          <Input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </Label>
+        {isError && <p>the email you input is invalid</p>}
+        <button type="submit">제출하기</button>
+      </form>
     </div>
   );
 };
