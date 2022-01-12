@@ -13,7 +13,6 @@ const Home: NextPage = () => {
   const [isMatchedPassword, setIsMatchedPassword] = useState(false);
   const [isLessThan5Character, setIsLessThan5Character] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
-  const [isDisabledButton, setIsDisabledButton] = useState(false);
 
   const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
     setIsEmail(emailValidate(e.target.value));
