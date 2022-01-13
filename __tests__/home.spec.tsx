@@ -3,14 +3,14 @@ import UserEvent from "@testing-library/user-event";
 import Home from "../pages";
 
 type Form = {
-  email?: string
-  password?: string
-  confirmedPassword?: string
-}
+  email?: string;
+  password?: string;
+  confirmedPassword?: string;
+};
 
-const typeIntoForm = ({ email, password, confirmedPassword, }: Form) => {
+const typeIntoForm = ({ email, password, confirmedPassword }: Form) => {
   const emailInputElement = screen.getByRole<HTMLInputElement>("textbox", {
-    name: /email/i
+    name: /email/i,
   });
   const passwordInputElement =
     screen.getByLabelText<HTMLInputElement>("Password");
@@ -18,30 +18,34 @@ const typeIntoForm = ({ email, password, confirmedPassword, }: Form) => {
     screen.getByLabelText<HTMLInputElement>("Confirm Password");
 
   if (email) {
-    UserEvent.type(emailInputElement, email)
+    UserEvent.type(emailInputElement, email);
   }
   if (password) {
-    UserEvent.type(passwordInputElement, password)
+    UserEvent.type(passwordInputElement, password);
   }
   if (confirmedPassword) {
-    UserEvent.type(confirmedPasswordInputElement, confirmedPassword)
+    UserEvent.type(confirmedPasswordInputElement, confirmedPassword);
   }
 
   return {
     emailInputElement,
     passwordInputElement,
-    confirmedPasswordInputElement
-  }
-}
+    confirmedPasswordInputElement,
+  };
+};
 
-describe('Home Testing', () => {
+describe("Home Testing", () => {
   beforeEach(() => {
     render(<Home />);
   });
 
   describe("Input Testing", () => {
     test("inputs should be initially empty ", () => {
-      const { emailInputElement, passwordInputElement, confirmedPasswordInputElement } = typeIntoForm({})
+      const {
+        emailInputElement,
+        passwordInputElement,
+        confirmedPasswordInputElement,
+      } = typeIntoForm({});
 
       expect(emailInputElement.value).toBe("");
       expect(passwordInputElement.value).toBe("");
@@ -49,24 +53,26 @@ describe('Home Testing', () => {
     });
 
     test("should be able to type an email", () => {
-      const { emailInputElement } = typeIntoForm({ email: "python@gmail.com" })
+      const { emailInputElement } = typeIntoForm({ email: "python@gmail.com" });
       expect(emailInputElement.value).toBe("python@gmail.com");
     });
 
     test("should be able to type an password", () => {
-      const { passwordInputElement } = typeIntoForm({ password: "1234567" })
+      const { passwordInputElement } = typeIntoForm({ password: "1234567" });
       expect(passwordInputElement.value).toBe("1234567");
     });
 
     test("should be able to type an confirm password", () => {
-      const { confirmedPasswordInputElement } = typeIntoForm({ confirmedPassword: "1234567" })
+      const { confirmedPasswordInputElement } = typeIntoForm({
+        confirmedPassword: "1234567",
+      });
       expect(confirmedPasswordInputElement.value).toBe("1234567");
     });
-  })
+  });
 
-  describe('Error Handling', () => {
+  describe("Error Handling", () => {
     test("should show email error message on invalid email", () => {
-      typeIntoForm({ email: "pythongmail.com" })
+      typeIntoForm({ email: "pythongmail.com" });
       const emailErrorElement = screen.queryByText(
         /the email you input is invalid/i
       );
@@ -74,7 +80,7 @@ describe('Home Testing', () => {
     });
 
     test("should show password error message if password is less than 5 character", () => {
-      typeIntoForm({ email: "python@gmail.com", password: "1234" })
+      typeIntoForm({ email: "python@gmail.com", password: "1234" });
 
       const passwordErrorElement = screen.queryByText(
         /The password you entered should contain 5 or more character/i
@@ -86,8 +92,8 @@ describe('Home Testing', () => {
       typeIntoForm({
         email: "python@gmail.com",
         password: "12345",
-        confirmedPassword: "1234"
-      })
+        confirmedPassword: "1234",
+      });
       const confirmedPasswordErrorElement = screen.queryByText(
         /The password don't match. try again/i
       );
@@ -98,8 +104,8 @@ describe('Home Testing', () => {
       typeIntoForm({
         email: "python@gmail.com",
         password: "12345",
-        confirmedPassword: "1234"
-      })
+        confirmedPassword: "1234",
+      });
 
       const button = screen.getByRole<HTMLButtonElement>("button", {
         name: "제출하기",
@@ -111,8 +117,8 @@ describe('Home Testing', () => {
       typeIntoForm({
         email: "python@gmail.com",
         password: "12345",
-        confirmedPassword: "12345"
-      })
+        confirmedPassword: "12345",
+      });
 
       const emailErrorElement = screen.queryByText(
         /the email you input is invalid/i
@@ -127,6 +133,5 @@ describe('Home Testing', () => {
       expect(passwordErrorElement).not.toBeInTheDocument();
       expect(confirmedPasswordErrorElement).not.toBeInTheDocument();
     });
-  })
-
-})
+  });
+});
