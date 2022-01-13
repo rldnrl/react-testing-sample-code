@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import Label from "@components/Label";
+import Input from "./Input";
 
 test("should input empty", () => {
-  render(<Label />);
+  render(<Input />);
 });
