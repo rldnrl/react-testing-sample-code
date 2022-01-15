@@ -55,11 +55,11 @@ describe("Card Test", () => {
   });
 
   it("should show image with correct src", () => {
-    render(<Card {...cardProps} src="python@gmail.com" />);
+    render(<Card {...cardProps} src="/images/sydney.jpg" alt="cute cat" />);
 
-    expect(screen.getByAltText(/cute cats/i)).toHaveAttribute(
+    expect(screen.getByAltText(/cute cat/i)).toHaveAttribute(
       "src",
-      "/public/images/sydney"
+      "/images/sydney.jpg"
     );
   });
 });
