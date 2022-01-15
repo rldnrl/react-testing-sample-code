@@ -5,7 +5,8 @@
   ],
   "extends": [
     "next/core-web-vitals",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "ignorePatterns": ["node_modules/", "*.spec.tsx"],
   "rules": {
@@ -19,7 +20,8 @@
         "ObjectExpression": 1,
         "ImportDeclaration": 1,
         "flatTernaryExpressions": false,
-        "offsetTernaryExpressions": true
+        "offsetTernaryExpressions": true,
+        "MemberExpression": 1 
       }
     ]
   }
