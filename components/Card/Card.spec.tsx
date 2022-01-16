@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { ComponentProps } from "react";
 import Card from "./Card";
 
@@ -22,7 +23,7 @@ const cardProps: ComponentProps<typeof Card> = {
   email: "",
   src: "",
   alt: "",
-  isFavored: false,
+  favored: false,
 };
 
 describe("Card Test", () => {
@@ -61,5 +62,33 @@ describe("Card Test", () => {
       "src",
       "/images/sydney.jpg"
     );
+  });
+
+  it("should show outlined heart", () => {
+    render(<Card {...cardProps} />);
+
+    expect(screen.queryByTestId("fulfilled heart")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("outlined heart")).toBeInTheDocument();
+  });
+
+  it("should show fulfilled heart", () => {
+    render(<Card {...cardProps} favored={true} />);
+
+    expect(screen.queryByTestId("outlined heart")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("fulfilled heart")).toBeInTheDocument();
+  });
+
+  it("should toggled heart status", () => {
+    render(<Card {...cardProps} />);
+
+    userEvent.click(screen.getByRole("button"));
+
+    expect(screen.queryByTestId("outlined heart")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("fulfilled heart")).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button"));
+
+    expect(screen.queryByTestId("fulfilled heart")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("outlined heart")).toBeInTheDocument();
   });
 });
