@@ -16,11 +16,11 @@ module.exports = {
     // Handle module aliases
     '^@pages/(.*)$': '<rootDir>/pages/$1',
     '^@components/(.*)$': '<rootDir>/components/$1',
+    '^@data/(.*)$': '<rootDir>/data/$1',
     '^@utils/(.*)$': '<rootDir>/utils/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
-  testEnvironment: 'jsdom',
   transform: {
     // Use babel-jest to transpile tests with the next/babel preset
     // https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object
@@ -31,6 +31,8 @@ module.exports = {
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   testEnvironment: 'jest-environment-jsdom',
+  // eslint-disable-next-line no-dupe-keys
+  testEnvironment: 'jsdom',
   snapshotSerializers: [
     '@emotion/jest/serializer' /* if needed other snapshotSerializers should go here */
   ]
