@@ -54,6 +54,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
       <form onSubmit={() => {}}>
         <Label htmlFor="email">
           <span>Email Address</span>
