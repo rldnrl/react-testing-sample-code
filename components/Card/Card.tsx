@@ -12,12 +12,26 @@ type CardProps = {
   src: string;
   alt: string;
   favored: boolean;
+  index: number;
+  updateFavorite: (index: number, favored: boolean) => void;
 };
 
-const Card = ({ name, phone, email, src, alt, favored }: CardProps) => {
+const Card = ({
+  name,
+  phone,
+  email,
+  src,
+  alt,
+  favored,
+  index,
+  updateFavorite,
+}: CardProps) => {
   const [isFavored, setIsFavored] = useState(favored);
 
-  const onToggleFavored = () => setIsFavored((prevIsFavored) => !prevIsFavored);
+  const onToggleFavored = () => {
+    updateFavorite(index, !isFavored);
+    setIsFavored((prevIsFavored) => !prevIsFavored);
+  };
 
   return (
     <article className={cx("card", cardContainerStyle)}>
