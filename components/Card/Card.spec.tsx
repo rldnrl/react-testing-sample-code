@@ -24,6 +24,8 @@ const cardProps: ComponentProps<typeof Card> = {
   src: "",
   alt: "",
   favored: false,
+  index: 1,
+  updateFavorite: () => {},
 };
 
 describe("Card Test", () => {
