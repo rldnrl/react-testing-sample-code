@@ -5,6 +5,20 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Person to greet"
+        required: false
+        default: "rldnrl"
+      home:
+        description: "location"
+        required: false
+        default: "The Octoverse"
+  repository_dispatch:
+    types: [build-event]
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build:
