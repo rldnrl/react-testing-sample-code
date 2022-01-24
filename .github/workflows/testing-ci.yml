@@ -1,4 +1,4 @@
-name: Build
+name: Testing CI
 
 on:
   push:
@@ -24,5 +24,3 @@ jobs:
         run: yarn
       - name: Run yarn test
         run: yarn test
-      - name: Run yarn build
-        run: yarn build
