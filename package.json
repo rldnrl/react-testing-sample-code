@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/css": "^11.7.1",
