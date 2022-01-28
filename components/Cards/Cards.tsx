@@ -1,18 +1,14 @@
 import Card from "@components/Card/Card";
 import { css, cx } from "@emotion/css";
-import { Cat } from "@data/catsData";
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
+import { PetsContext } from "@pages/pets";
 
-type CardsProps = {
-  cats: Cat[];
-  onUpdateCats: Dispatch<SetStateAction<Cat[]>>;
-};
-
-const Cards = ({ cats, onUpdateCats }: CardsProps) => {
+const Cards = () => {
+  const { filteredCats: cats, setFilteredCats } = useContext(PetsContext);
   const updateFavorite = (index: number, favored: boolean) => {
     const updatedCats = [...cats];
     updatedCats[index].favored = favored;
-    onUpdateCats(updatedCats)
+    setFilteredCats(updatedCats);
   };
 
   return (

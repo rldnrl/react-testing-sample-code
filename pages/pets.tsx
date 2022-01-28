@@ -1,4 +1,10 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import type { NextPage } from "next";
 import Cards from "@components/Cards";
 import Filter from "@components/Filter";
@@ -19,6 +25,17 @@ export type FilterType = {
 type PetsProps = {
   cats: Cat[];
 };
+
+type TPetsContext = {
+  filteredCats: Cat[];
+  setFilteredCats: Dispatch<SetStateAction<Cat[]>>;
+};
+
+export const PetsContext = createContext<TPetsContext>({
+  filteredCats: [],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setFilteredCats: () => {},
+});
 
 const Pets: NextPage<PetsProps> = ({ cats }) => {
   const { data } = useQuery("cats", fetchCats, { initialData: cats });
@@ -64,8 +81,15 @@ const Pets: NextPage<PetsProps> = ({ cats }) => {
 
   return (
     <div className={cx("pets-container", petsContainerStyle)}>
-      <Filter filters={filters} onFiltersChange={setFilters} />
-      <Cards cats={filteredCats} onUpdateCats={setFilteredCats} />
+      <PetsContext.Provider
+        value={{
+          filteredCats,
+          setFilteredCats,
+        }}
+      >
+        <Filter filters={filters} onFiltersChange={setFilters} />
+        <Cards />
+      </PetsContext.Provider>
     </div>
   );
 };
